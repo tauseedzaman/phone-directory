@@ -5,14 +5,17 @@ include_once 'config.php';
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PHP CRUD Test</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PHP Phone Directory</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
+
 <body class="bg-light">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 mx-auto bg-dark rounded shadow py-3">
-				<h1 class="text-center text-light  ">PHP CRUD TEST</h1>
+				<h1 class="text-center text-light  ">PHP Phone Directory</h1>
 			</div>
 		</div>
 		<div class="col-md-8 mx-auto">
@@ -220,6 +223,8 @@ $(document).on('click',"#edit",function () {
                 });
             }
         });
+
 </script>
+
 </body>
 </html>	
