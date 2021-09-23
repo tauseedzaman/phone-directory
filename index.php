@@ -15,18 +15,28 @@ include_once 'config.php';
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 mx-auto bg-dark rounded shadow py-3">
-				<h1 class="text-center text-light  ">PHP Phone Directory</h1>
+				<h1 class="text-center text-light">PHP Phone Directory</h1>
 			</div>
 		</div>
 		<div class="col-md-8 mx-auto">
+            <?php if (!empty($_REQUEST['resback'])){
+                echo '<div class="alert " id="alert">
+                '.$_REQUEST['resback'].'
+            </div>';
+
+            } ?>
+                
 			<div class="alert " id="alert">
 				
 			</div>
 		</div>
 		<div class="row my-1">
 			<div class="col-md-8 mx-auto form-inline">
-			<input type="search" name="item" class="form-control w-75 mx-0" placeholder="Search Item">
+			<input type="search" name="item" id="item" onkeyup="LoadData()" class="form-control w-75 mx-0" placeholder="Search Item">
 				<button class="btn btn-info ml-auto" onclick="show_model()" data-toggle="modal" data-target="data_model" data-whatever="@getbootstrap">Add Record</button>
+                <a href="export_to_csv.php" class="btn btn-secondary my-2">Export CSV</a>
+                <button class="ml-1 btn btn-primary my-2" id="importCSV" onclick="importCSV()" data-toggle="modal" data-target="importCSV_model" data-whatever="@getbootstrap">Import CSV</button>
+                <a href="save_to_pdf.php" class="ml-1 btn btn-warning my-2">Save PDF</a>
 			</div>
 		</div>
 
@@ -46,6 +56,42 @@ include_once 'config.php';
 			</div>
 		</div>
 	</div>
+
+    <footer>
+        <div class="container mt-auto fixed-bottom">
+        <div class="row">
+            <div class="col-md-8 mx-auto bg-dark rounded shadow py-1">
+                <p class="text-center text-light  ">&copy By <a href="www.githib.com/tauseedzaman">Tauseed Zaman</a></p>
+            </div>
+        </div>    </footer>
+
+    <!-- Import csv Modal  -->
+    <div class="modal fade" id="importCSV_model" tabindex="-1" role="dialog" aria-labelledby="importCSV_model" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="data_model">Import Data From CSV File</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="">
+        <form id="importCSV_form" method="post" action="import_csv.php" enctype="multipart/form-data" >
+          <div class="form-group" >
+            <label for="recipient-name" class="col-form-label" >Choose .csv file</label>
+            <input type="file" required="" name="file" class="form-control-file" id="">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success " id="">Import</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+
 	<!-- modal create and edit -->
 
 
@@ -101,7 +147,14 @@ include_once 'config.php';
 
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" >
+
+function importCSV() {
+        $("#importCSV_model").modal('show');
+
+}
+
+
 function show_model() {
     $("#data_model").modal('show');
 }
@@ -110,6 +163,7 @@ function show_model() {
  * Add Data
  */
 $(document).ready(function() {
+    $("#alert").hide();
 			
 $(document).on('click',"#edit",function () {
 
@@ -148,10 +202,13 @@ $(document).on('click',"#edit",function () {
                     },
 
                     success: function(data) {
-                    	console.log(data)
+                             $("#alert").removeClass("alert-info");
+                            $("#alert").removeClass("alert-danger");
                             $("#alert").addClass("alert-success");
                             $("#alert").html("Added Successfully!")
                             $("#data_model").modal('hide');
+                            $("#phone").val('');
+                            $("#name").val('');
                             LoadData()
                     }
                 });
@@ -173,6 +230,8 @@ $(document).on('click',"#edit",function () {
                     type: "POST",
                     url: "./operate.php",
                     success: function(dataResult) {
+                        $("#alert").removeClass("alert-danger");
+                            $("#alert").removeClass("alert-success");
                     	 $("#alert").addClass("alert-info");
                             $("#alert").html("Updated Successfully!")
                         LoadData()
@@ -200,29 +259,45 @@ $(document).on('click',"#edit",function () {
                             id: $(this).data('id')
                         },
                         success: function(dataResult) {
+                            $("#alert").removeClass("alert-info");
+                            $("#alert").removeClass("alert-success");
+                            $("#alert").addClass("alert-danger");
+                            $("#alert").html("Deleted Successfully!")
                             LoadData();
+
                         }
                     });
                 }
             });
 
+
+
+
+
+        });
             function LoadData() {
+                var item = $("#item").val();
                 $.ajax({
                     url: "./operate.php",
                     type: "GET",
                     data: {
                         type: "load",
+                        item: item,
                     },
                     success: function(dataResult) {
-                    	
-                        $("#tbody").html(dataResult);
+                        if (dataResult) {
+                            $("#tbody").html(dataResult);
+                        }else
+                        {
+                            $("#tbody").html('<h1 class="text-danger p-3">No Data!!</h1>');
+                        }
                     },
                     error: function(error) {
                         console.log(error)
                     }
                 });
             }
-        });
+                
 
 </script>
 

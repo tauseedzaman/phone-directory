@@ -7,8 +7,9 @@ include_once('config.php');
  */
 if (count($_GET) > 0) {
     if ($_GET['type'] === 'load') {
-        
-        $result = mysqli_query($conn, "SELECT * FROM  phonesdirectory  order by id desc");
+        $item = $_GET['item'];
+
+        $result = mysqli_query($conn, "SELECT * FROM  phonesdirectory WHERE name LIKE '%$item%' OR phone LIKE '%$item%'");
         $output = "";
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>
@@ -105,6 +106,34 @@ if (count($_GET) > 0) {
         mysqli_close($conn);
     }
 }
+
+
+// /*
+// * Search Data
+// */
+// if (count($_GET) > 0) {
+//     if ($_GET['type'] =="search") {
+//         $item = $_GET['item'];
+        
+//         $query = "SELECT * FROM phonesdirectory WHERE name LIKE '%$item%' OR phone LIKE '%$item%'";
+
+//         $result = mysqli_query($conn, $query);
+
+//         while ($row = mysqli_fetch_array($result)) {
+//             echo "<tr>
+//                         <td>" . $row['id'] . "</td><td>" . $row["name"] . "</td>
+//                         <td>" . $row['phone'] . "</td>
+//                             <td class='text-center'>
+//                                 <button class='btn  btn-sm btn-primary' data-id='" . $row['id'] . "' data-toggle='modal' id='edit'>Edit</button>
+
+//                                 <button class='btn btn-sm btn-danger' data-id='" . $row['id'] . "' data-toggle='modal' id='delete'>Delete</button>
+//                             </td></tr>";
+//         }
+
+//         mysqli_close($conn);
+//     }
+// }
+
 
 
 ?>
