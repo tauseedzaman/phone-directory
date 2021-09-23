@@ -13,20 +13,21 @@ $dompdf = new Dompdf();
 
 $result = mysqli_query($conn, "SELECT * FROM  phonesdirectory ");
         $output = '
-	
+			<h1>Phone Directory Data</h1>
 			<table>
 					<thead>	
-						<th>#</th>
-						<th>Name</th>
-						<th>Phone</th>
+						<th><h2>#</h2></th>
+						<th><h2>Name</h2></th>
+						<th><h2>Phone</h2></th>
 					</thead>
 					<tbody>';
         
         while ($row = mysqli_fetch_array($result)) {
            $output .= "<tr>
-                        <td>" . $row['id'] . "</td><td>" . $row["name"] . "</td>
+                        <td>" . $row['id'] . "</td>
+                        <td>" . $row["name"] . "</td>
                         <td>" . $row['phone'] . "</td>
-                           </tr>";
+                        </tr>";
         }
 
         $output .='</tbody>
