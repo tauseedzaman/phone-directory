@@ -3,23 +3,20 @@
 include_once("config.php");
 require 'vendor/autoload.php';
 
-// reference the Dompdf namespace
 use Dompdf\Dompdf;
-
-// instantiate and use the dompdf class
 $dompdf = new Dompdf();
 
 
 
 $result = mysqli_query($conn, "SELECT * FROM  phonesdirectory ");
         $output = '
-			<h1>Phone Directory Data</h1>
-			<table>
-					<thead>	
-						<th><h2>#</h2></th>
-						<th><h2>Name</h2></th>
-						<th><h2>Phone</h2></th>
-					</thead>
+			<h1 style="text-align: center; padding: 10px;color: cyan;background:black">Phone Directory Data</h1>
+			<table style="width: 100%;text-align: center;table-layout: all;text-align-last: center;">
+					<tr style=" color: yellow;background:green">	
+						<td><h2>#</h2></td>
+						<td><h2>Name</h2></td>
+						<td><h2>Phone</h2></td>
+					</tr>
 					<tbody>';
         
         while ($row = mysqli_fetch_array($result)) {
@@ -27,24 +24,20 @@ $result = mysqli_query($conn, "SELECT * FROM  phonesdirectory ");
                         <td>" . $row['id'] . "</td>
                         <td>" . $row["name"] . "</td>
                         <td>" . $row['phone'] . "</td>
+
                         </tr>";
         }
 
         $output .='</tbody>
-				</table>';
+				</table> <br /><br /><br /><br /><br /><br /><br /><p style="text-align: center; padding: 10px;color: cyan;background:black;text-align: center; margin-top:10px">© Copyright By <a href="https://github.com/tauseedzaman"> Tauseed zaman :)</a></p>';
 
-// echo $output;
+
 $dompdf->loadHtml($output);
 
-// (Optional) Setup the paper size and orientation
 $dompdf->setPaper('A4', 'landscape');
 
-// Render the HTML as PDF
 $dompdf->render();
 
-// Output the generated PDF to Browser
 $dompdf->stream();
-
-echo 'string';
 
 	 ?>

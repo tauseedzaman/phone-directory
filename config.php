@@ -12,9 +12,9 @@ $db = "testPHP";
 $conn = mysqli_connect($host, $username, $password) or die('connection error');
 
 // create database if not esits
-$query = "create database if not exists `chatapp`";
+// $query = "create database if not exists `chatapp`";
 
-mysqli_query($conn,$query) or die("con't create database");
+// mysqli_query($conn,$query) or die("con't create database");
 
 $query = "USE $db";
 

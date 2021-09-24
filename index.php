@@ -13,7 +13,7 @@ include_once 'config.php';
 
 <body class="bg-light">
 	<div class="container">
-		<div class="row">
+		<div class="row" >
 			<div class="col-md-8 mx-auto bg-dark rounded shadow py-3">
 				<h1 class="text-center text-light">PHP Phone Directory</h1>
 			</div>
@@ -56,7 +56,9 @@ include_once 'config.php';
 			</div>
 		</div>
 	</div>
-
+<table style="">
+    
+</table>
     <footer>
         <div class="container mt-auto fixed-bottom">
         <div class="row">
