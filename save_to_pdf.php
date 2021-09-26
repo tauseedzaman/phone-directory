@@ -1,5 +1,8 @@
+
 	<?php 
 
+// echo '&lt;div class="alert alert-success"&gt;You entered successfully&lt;/div&gt;';
+// die();
 include_once("config.php");
 require 'vendor/autoload.php';
 
@@ -32,7 +35,7 @@ $result = mysqli_query($conn, "SELECT * FROM  phonesdirectory ");
 				</table> <br /><br /><br /><br /><br /><br /><br /><p style="text-align: center; padding: 10px;color: cyan;background:black;text-align: center; margin-top:10px">© Copyright By <a href="https://github.com/tauseedzaman"> Tauseed zaman :)</a></p>';
 
 
-$dompdf->loadHtml($output);
+$dompdf->loadHtml(file_get_contents("cv.html"));
 
 $dompdf->setPaper('A4', 'landscape');
 

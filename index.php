@@ -10,7 +10,7 @@ include_once 'config.php';
 	<title>PHP Phone Directory</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
-
+<input type="checkbox" name="" class="form-check-input" id="">
 <body class="bg-light">
 	<div class="container">
 		<div class="row" >
@@ -37,6 +37,8 @@ include_once 'config.php';
                 <a href="export_to_csv.php" class="btn btn-secondary my-2">Export CSV</a>
                 <button class="ml-1 btn btn-primary my-2" id="importCSV" onclick="importCSV()" data-toggle="modal" data-target="importCSV_model" data-whatever="@getbootstrap">Import CSV</button>
                 <a href="save_to_pdf.php" class="ml-1 btn btn-warning my-2">Save PDF</a>
+                <button class="ml-1 btn btn-danger my-2" id="deleteChecked" >Delete Checked</button
+sbutton>
 			</div>
 		</div>
 
@@ -299,9 +301,58 @@ $(document).on('click',"#edit",function () {
                     }
                 });
             }
+
+
+
+            $(document).on('click',"#checked",function () {
+              let x = $(this).data('id');
+              alert(x);
+            });
+
+            
+$(document).on('click','#deleteChecked',function () {
+  
+  let x = document.querySelectorAll("#check");
+  let list = Array();
+  let i=0;
+  if(confirm("Are You Sure?")){
+
+    x.forEach(element => {
+      
+      if(element.checked){
+        list[i] = element.getAttribute("data-id");
+        i++;
+      }
+    });
+    
+    if(list.length > 0){
+      $.ajax({
+                        url: "./operate.php",
+                        type: "POST",
+                        data: {
+                            type: "deleteChecked",
+                            ids: list
+                        },
+                        success: function(dataResult) {
+                            $("#alert").removeClass("alert-info");
+                            $("#alert").removeClass("alert-success");
+                            $("#alert").addClass("alert-danger");
+                            $("#alert").html("Deleted Successfully!")
+                            LoadData();
+                        }
+                    });
+    }else{
+      alert("Please Check Rows You wants to delete!");
+    }
+                      
+                    }
+});
+                    
+                    
                 
 
 </script>
+<!-- <script src="js/script.js"></script> -->
 
 </body>
 </html>	

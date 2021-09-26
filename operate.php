@@ -12,8 +12,9 @@ if (count($_GET) > 0) {
         $result = mysqli_query($conn, "SELECT * FROM  phonesdirectory WHERE name LIKE '%$item%' OR phone LIKE '%$item%'");
         $output = "";
         while ($row = mysqli_fetch_array($result)) {
-            echo "<tr>
-                        <td>" . $row['id'] . "</td><td>" . $row["name"] . "</td>
+            echo "<tr data-id(".$row['id'].")>
+                        <td>" . $row['id'] . " <input type='checkbox'  class='input-check'  data-id=".$row['id']." name='checked' id='check' ></td>
+                        <td>" . $row["name"] . "</td>
                         <td>" . $row['phone'] . "</td>
                             <td class='text-center'>
                                 <button class='btn  btn-sm btn-primary' data-id='" . $row['id'] . "' data-toggle='modal' id='edit'>Edit</button>
@@ -80,6 +81,25 @@ if (count($_POST) > 0) {
         } else {
             echo "Error:: " . $query . "<br>" . mysqli_error($conn);
         }
+        mysqli_close($conn);
+    }
+}
+
+
+
+/*
+* Delete Checked Rows
+*/
+
+if (count($_POST) > 0) {
+    if ($_POST['type'] == "deleteChecked") {
+        $ids = $_POST['ids'];
+        foreach($ids as $id){
+
+            $query = "DELETE FROM `phonesdirectory` WHERE id=$id ";
+            mysqli_query($conn, $query) or die(mysqli_error($conn));
+        }
+        echo $id;
         mysqli_close($conn);
     }
 }
