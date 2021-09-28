@@ -17,9 +17,9 @@ if (count($_GET) > 0) {
                         <td>" . $row["name"] . "</td>
                         <td>" . $row['phone'] . "</td>
                             <td class='text-center'>
-                                <button class='btn  btn-sm btn-primary' data-id='" . $row['id'] . "' data-toggle='modal' id='edit'>Edit</button>
+                                <button class='btn  btn-sm btn-primary' data-id='" . $row['id'] . "' data-toggle='modal' id='edit'><i class='fas fa-user-edit'></i></button>
 
-                                <button class='btn btn-sm btn-danger' data-id='" . $row['id'] . "' data-toggle='modal' id='delete'>Delete</button>
+                                <button class='btn btn-sm btn-danger' data-id='" . $row['id'] . "' data-toggle='modal' id='delete'><i class='fas fa-user-times'></i></button>
                             </td></tr>";
         }
         

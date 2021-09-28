@@ -1,6 +1,11 @@
 <?php 
+session_start();
 include_once 'config.php';
- ?>
+if (!isset($_SESSION['user'])){
+  header("Location: login.php");
+}
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -9,6 +14,7 @@ include_once 'config.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>PHP Phone Directory</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <input type="checkbox" name="" class="form-check-input" id="">
 <body class="bg-light">
@@ -33,17 +39,16 @@ include_once 'config.php';
 		<div class="row my-1">
 			<div class="col-md-8 mx-auto form-inline">
 			<input type="search" name="item" id="item" onkeyup="LoadData()" class="form-control w-75 mx-0" placeholder="Search Item">
-				<button class="btn btn-info ml-auto" onclick="show_model()" data-toggle="modal" data-target="data_model" data-whatever="@getbootstrap">Add Record</button>
-                <a href="export_to_csv.php" class="btn btn-secondary my-2">Export CSV</a>
-                <button class="ml-1 btn btn-primary my-2" id="importCSV" onclick="importCSV()" data-toggle="modal" data-target="importCSV_model" data-whatever="@getbootstrap">Import CSV</button>
-                <a href="save_to_pdf.php" class="ml-1 btn btn-warning my-2">Save PDF</a>
-                <button class="ml-1 btn btn-danger my-2" id="deleteChecked" >Delete Checked</button
-sbutton>
+				<button class="btn btn-info ml-auto" onclick="show_model()" data-toggle="modal" data-target="data_model" data-whatever="@getbootstrap">Add Record <i class="fas fa-user-plus"></i></button>
+                <a href="export_to_csv.php" class="btn btn-secondary my-2">Export CSV <i class="fas fa-file-csv"></i></a>
+                <button class="ml-1 btn btn-primary my-2" id="importCSV" onclick="importCSV()" data-toggle="modal" data-target="importCSV_model" data-whatever="@getbootstrap">Import CSV <i class="fas fa-file-csv"></i></button>
+                <a href="save_to_pdf.php" class="ml-1 btn btn-warning my-2">Save PDF <i class="fas fa-file-pdf"></i></a>
+                <button class="ml-1 btn btn-danger my-2" id="deleteChecked" >Delete Checked <i class="fas fa-trash-alt"></i> </buttobutton>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-md-8 mx-auto bg-light shadow p-0">
+			<div class="col-md-8 mx-auto bg-light shadow p-0 ">
 				<table class="table table-hover table-white table-striped ">
 					<thead class="bg-warning">	
 						<th>#</th>
@@ -51,18 +56,16 @@ sbutton>
 						<th>Phone</th>
 						<th>Action</th>
 					</thead>
-					<tbody class="table-bordered" id="tbody">
+					<tbody class="table-bordered " id="tbody">
 						
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
-<table style="">
-    
-</table>
-    <footer>
-        <div class="container mt-auto fixed-bottom">
+  <br>
+    <footer class="mt-4">
+        <div class="container mt-auto ">
         <div class="row">
             <div class="col-md-8 mx-auto bg-dark rounded shadow py-1">
                 <p class="text-center text-light  ">&copy By <a href="www.githib.com/tauseedzaman">Tauseed Zaman</a></p>
@@ -74,7 +77,7 @@ sbutton>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="data_model">Import Data From CSV File</h5>
+        <h5 class="modal-title" id="import_data_model">Import Data From CSV File</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -339,7 +342,7 @@ $(document).on('click','#deleteChecked',function () {
                             $("#alert").addClass("alert-danger");
                             $("#alert").html("Deleted Successfully!")
                             LoadData();
-                        }
+                             }
                     });
     }else{
       alert("Please Check Rows You wants to delete!");
