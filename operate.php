@@ -7,9 +7,10 @@ include_once('config.php');
  */
 if (count($_GET) > 0) {
     if ($_GET['type'] === 'load') {
-        $item = $_GET['item'];
+        $item = $_GET['item'] ? :'';
+        $orderby = $_GET['orderby'] ? :'id';
 
-        $result = mysqli_query($conn, "SELECT * FROM  phonesdirectory WHERE name LIKE '%$item%' OR phone LIKE '%$item%'");
+        $result = mysqli_query($conn, "SELECT * FROM  phonesdirectory WHERE name LIKE '%$item%' OR phone LIKE '%$item%' ORDER BY $orderby ASC");
         $output = "";
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr data-id(".$row['id'].")>

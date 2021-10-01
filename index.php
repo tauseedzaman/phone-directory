@@ -27,7 +27,8 @@ if (!isset($_SESSION['user'])){
                 <a href="logout.php">
                     <h3 class='float-right  text-danger px-2 py-1 bg-success rounded-circle text-capitalize'
                         style="cursor: pointer;" title="Logout as <?php echo $_SESSION['user'] ?> ">
-                        <b><b><b><?php echo $_SESSION['user'][0] ?></b></b></b></h3>
+                        <b><b><b><?php echo $_SESSION['user'][0] ?></b></b></b>
+                    </h3>
                 </a>
             </div>
 
@@ -65,16 +66,18 @@ if (!isset($_SESSION['user'])){
             <div class="col-md-8 mx-auto bg-light shadow p-0 ">
                 <table class="table table-hover table-white table-striped ">
                     <thead class="bg-warning">
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Action</th>
+                        <th title="sort by ID" onclick="orderby('id')" style="cursor:pointer"># <i class="fa fa-sort"></i> </th>
+                        <th title="sort by name" onclick="orderby('name')" style="cursor:pointer">Name <i class="fa fa-sort"></i> </th>
+                        <th  title="sort by phone number" onclick="orderby('phone')" style="cursor:pointer">Phone <i class="fa fa-sort"></i></th>
+                        <th>Actions</th>
                     </thead>
                     <tbody class="table-bordered " id="tbody">
 
                     </tbody>
                 </table>
+
             </div>
+
         </div>
     </div>
     <br>
@@ -298,13 +301,14 @@ if (!isset($_SESSION['user'])){
 
     });
 
-    function LoadData() {
+    function LoadData(orderby='id') {
         var item = $("#item").val();
         $.ajax({
             url: "./operate.php",
             type: "GET",
             data: {
                 type: "load",
+                orderby: orderby,
                 item: item,
             },
             success: function(dataResult) {
@@ -365,6 +369,11 @@ if (!isset($_SESSION['user'])){
 
         }
     });
+
+    function orderby(index) {
+        LoadData(index);
+    }
+
     </script>
     <!-- <script src="js/script.js"></script> -->
 
