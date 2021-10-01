@@ -1,5 +1,13 @@
 <?php 
+
+/*
+* redirect user to index if allready longin
+*/
+session_start();
 include("config.php");
+if (isset($_SESSION['user'])){
+    header("Location: index.php");
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +29,8 @@ include("config.php");
         <h1 class="text-center text-info">Login</h1>
             </div>
             <div class="card-body">
-                <form method="post" action="auth/handle_login.php" class="form">
+                <form method="post" action="<?php $_SERVER["PHP_SELF"] ?>" class="form">
+                
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input id="username" class="form-control" type="text" name="username">
@@ -42,6 +51,30 @@ include("config.php");
             </div>
         </div>
     </div>
+    <?php 
+if(isset($_POST['username']) and isset($_POST['password'])){
+    // include_once("config.php");
+    $username = $conn->real_escape_string($_POST['username']);
+    $password = $conn->real_escape_string(md5($_POST['password']));
+
+    $query = "SELECT * FROM `users` WHERE username='$username' AND password='$password'";
+    if ($result = $conn->query($query)) 
+    {
+
+        $row = mysqli_fetch_assoc($result);
+        if($row){
+            session_start();
+            $_SESSION['user'] = $row['username'];
+            
+            header("Location: index.php"); 
+        }else{
+            echo "<script> alert('Whoops! Invalid username or password'); </script>";
+        }
+
+    }
+}
+
+?>
 
 
 </body>
