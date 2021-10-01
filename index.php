@@ -25,7 +25,7 @@ if (!isset($_SESSION['user'])){
             <div class="col-md-8 mx-auto bg-dark rounded shadow py-3">
                 <h1 class="text-center text-light">PHP Phone Directory</h1>
                 <a href="logout.php">
-                    <h3 class='float-right  text-danger px-2 py-1 bg-success rounded-circle text-capitalize'
+                    <h3 class='float-right  text-danger px-2 py-0 bg-success rounded-circle text-capitalize'
                         style="cursor: pointer;" title="Logout as <?php echo $_SESSION['user'] ?> ">
                         <b><b><b><?php echo $_SESSION['user'][0] ?></b></b></b>
                     </h3>
