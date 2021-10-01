@@ -7,6 +7,8 @@ include("config.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>PHP Phone Directory Login</title>
 </head>
 <body class="">
@@ -32,6 +34,8 @@ include("config.php");
             <div class="card-footer ">
             <button class="btn btn-success btn-block" type="submit">Login</button>
             <a href="register.php" class="nav-link text-center">Not Registered! Click Here</a>
+            <a href="" class="nav-link text-center">Sign in wth google <i class="fas fa-google"></i></a> 
+            <a href="" class="nav-link text-center">Sign in wth Facebook <i class="fas fa-facebook"></i></a> 
                 </form>
             </div>
         </div>

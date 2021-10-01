@@ -22,15 +22,15 @@ include("config.php");
                 <form method="post" action="auth/handle_register.php" class="form">
                 <div class="form-group">
                         <label for="email">Email</label>
-                        <input id="email" class="form-control" type="email" name="email">
+                        <input id="email" class="form-control" type="email" required name="email">
                     </div>
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input id="username" class="form-control" type="text" name="username">
+                        <input id="username" class="form-control" type="text" required name="username">
                     </div>
                     <div class="form-group">
                         <label for="username">Password</label>
-                        <input id="username" class="form-control" type="password" name="password">
+                        <input id="username" class="form-control" type="password" required name="password">
                     </div>
             </div>
             <div class="card-footer ">

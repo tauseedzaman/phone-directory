@@ -10,5 +10,4 @@ function RowChecked() {
             i++;
         }
     });
-    console.log(list);
 }

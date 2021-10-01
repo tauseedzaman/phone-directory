@@ -22,7 +22,7 @@ mysqli_query($conn,$query) or die(" database dones not selected");
 
 
 $query="CREATE TABLE IF NOT EXISTS `users` ( 
-	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
+	`user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
 	`email` VARCHAR(255) NOT NULL , 
 	`username` VARCHAR(255) NOT NULL , 
 	`password` VARCHAR(255) NOT NULL , 
@@ -36,9 +36,13 @@ mysqli_query($conn, $query) or die("con't create users table". mysqli_error($con
 			`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT , 
 			`name` VARCHAR(100) NOT NULL , 
 			`phone` VARCHAR(25) NOT NULL , 
+			`user_id` INT UNSIGNED NOT NULL,
 			`created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP , 
 			`updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP , 
-			PRIMARY KEY (`id`)) ENGINE = InnoDB";
+			PRIMARY KEY (`id`)
+			-- FOREIGN KEY (user_id) REFERENCES customers(id) 
+			) ENGINE = InnoDB
+			";
 		
 		mysqli_query($conn, $query) or die("con't create phonesDirectory table". mysqli_error($conn));
  ?>
