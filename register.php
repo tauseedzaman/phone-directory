@@ -10,6 +10,7 @@ if (isset($_SESSION['user'])){
   ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,6 +62,7 @@ if(isset($_POST['email']) and isset($_POST['username']) and isset($_POST['passwo
     {
         session_start();
         $_SESSION['user'] = $row['username'];
+        $_SESSION['user_id'] = $row['id'];
         header("Location: index.php"); 
     }else{
         echo "<script> alert('Whoops! Invalid username or password'); </script>";
